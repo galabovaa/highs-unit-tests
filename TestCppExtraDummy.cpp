@@ -2,7 +2,7 @@
 
 #include "catch.hpp"
 
-TEST_CASE("start-nvidia", "[test_gpu_fire_up]") {
+TEST_CASE("start-dummy", "[cpp_extra_dummy]") {
   // TODO add code here
 
   std::cout << "Test extra dummy." << std::endl;
