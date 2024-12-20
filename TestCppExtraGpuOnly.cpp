@@ -7,7 +7,7 @@
 #include <cuda_runtime_api.h>  // cudaMalloc, cudaMemcpy, etc.
 #include <cusparse.h>          // cusparseSpMV
 
-TEST_CASE("start-nvidia", "[test_gpu_fire_up_only]") {
+TEST_CASE("start-nvidia-only", "[test_gpu_fire_up_only]") {
   // TODO add code here
 
   std::cout << "Test extra GPU only." << std::endl;
@@ -36,8 +36,6 @@ TEST_CASE("start-nvidia", "[test_gpu_fire_up_only]") {
   // cuda_prepare_time = getTimeStamp() - cuda_prepare_time;
 
   // std::cout << "cuda prepare time: " << cuda_prepare_time << std::endl;
-
-  REQUIRE(true);
 
   // check cupdlp_copy_vec
   // cublasDdot_v2(cublasHandle_t handle, int n, const double* x, int incx, const double* y, int incy, double* result);
@@ -89,7 +87,7 @@ TEST_CASE("start-nvidia", "[test_gpu_fire_up_only]") {
 
 
 
-TEST_CASE("testcublas", "[test_gpu_fire_up_only]") {
+TEST_CASE("test-cublas-only", "[test_gpu_fire_up_only]") {
 
   std::cout << "Test extra GPU only: cublas" << std::endl;
 
