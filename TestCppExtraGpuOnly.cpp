@@ -8,16 +8,13 @@
 #include <cusparse.h>          // cusparseSpMV
 
 TEST_CASE("start-nvidia-only", "[test_gpu_fire_up_only]") {
-  // TODO add code here
 
   std::cout << "Test extra GPU only." << std::endl;
 
-  REQUIRE(true);
 
   cusparseHandle_t cusparsehandle;
   cublasHandle_t cublashandle;
 
-  // double cuda_prepare_time = getTimeStamp();
   // CHECK_CUSPARSE(cusparseCreate(&w->cusparsehandle));
     cusparseStatus_t status_cusparse = cusparseCreate(&cusparsehandle);                                      
     if (status_cusparse != CUSPARSE_STATUS_SUCCESS) {                               
@@ -43,8 +40,8 @@ TEST_CASE("start-nvidia-only", "[test_gpu_fire_up_only]") {
   double xs[] = {1, 1, 1};
   double ys[] = {1, 2, 3};
 
-  double* x = &xs[0];
-  double* y = &ys[0];
+  const double* x = &xs[0];
+  const double* y = &ys[0];
 
   double* devx;
   double* devy;
@@ -83,9 +80,6 @@ TEST_CASE("start-nvidia-only", "[test_gpu_fire_up_only]") {
   cublasDestroy(cublashandle);
   cusparseDestroy(cusparsehandle);
 }
-
-
-
 
 TEST_CASE("test-cublas-only", "[test_gpu_fire_up_only]") {
 

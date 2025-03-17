@@ -14,8 +14,6 @@
 
 TEST_CASE("start-nvidia", "[test_gpu_fire_up]") {
 
-  // TODO add code here
-
   std::cout << "GPU FIRE UP TEST" << std::endl;
 
   // CUPDLPwork* w = cupdlp_NULL;
@@ -72,7 +70,7 @@ TEST_CASE("start-nvidia", "[test_gpu_fire_up]") {
   stat = cublasSetVector(n, sizeof(*y), y, 1, devy, 1);
   if (stat != CUBLAS_STATUS_SUCCESS) 
         printf ("setVector y failed");
-  // double x[] = [1,2,3];
+  
   cublasStatus_t status =  cublasDdot(cublashandle, n, devx, 1, devy, 1, &res);
 
   if (status != CUBLAS_STATUS_SUCCESS) {                               
@@ -150,5 +148,3 @@ TEST_CASE("test-cublas", "[test_gpu_fire_up]") {
  
   cublasDestroy(cublashandle);
 }
-
-
