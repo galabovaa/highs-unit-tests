@@ -3,26 +3,18 @@
 
 #include "catch.hpp"
 
-#include "pdlp/CupdlpWrapper.h"
+#include <cublas_v2.h>         // cublas
+#include <cuda_runtime_api.h>  // cudaMalloc, cudaMemcpy, etc.
+#include <cusparse.h>          // cusparseSpMV
 
-// #include <cublas_v2.h>         // cublas
-// #include <cuda_runtime_api.h>  // cudaMalloc, cudaMemcpy, etc.
-// #include <cusparse.h>          // cusparseSpMV
+TEST_CASE("start-nvidia-only", "[test_gpu_fire_up_only]") {
 
-#include "pdlp/cupdlp/cuda/cupdlp_cuda_kernels.cuh"
-#include "pdlp/cupdlp/cuda/cupdlp_cudalinalg.cuh"
+  std::cout << "Test extra GPU only." << std::endl;
 
-TEST_CASE("start-nvidia", "[test_gpu_fire_up]") {
-
-  std::cout << "GPU FIRE UP TEST" << std::endl;
-
-  // CUPDLPwork* w = cupdlp_NULL;
-  // cupdlp_init_work(w, 1);
 
   cusparseHandle_t cusparsehandle;
   cublasHandle_t cublashandle;
 
-  cupdlp_float cuda_prepare_time = getTimeStamp();
   // CHECK_CUSPARSE(cusparseCreate(&w->cusparsehandle));
     cusparseStatus_t status_cusparse = cusparseCreate(&cusparsehandle);                                      
     if (status_cusparse != CUSPARSE_STATUS_SUCCESS) {                               
@@ -38,9 +30,9 @@ TEST_CASE("start-nvidia", "[test_gpu_fire_up]") {
              __LINE__, __FILE__,
              cublasGetStatusString(status_cublas), status_cublas);  
     }
-  cuda_prepare_time = getTimeStamp() - cuda_prepare_time;
+  // cuda_prepare_time = getTimeStamp() - cuda_prepare_time;
 
-  std::cout << "cuda prepare time: " << cuda_prepare_time << std::endl;
+  // std::cout << "cuda prepare time: " << cuda_prepare_time << std::endl;
 
   // check cupdlp_copy_vec
   // cublasDdot_v2(cublasHandle_t handle, int n, const double* x, int incx, const double* y, int incy, double* result);
@@ -70,7 +62,7 @@ TEST_CASE("start-nvidia", "[test_gpu_fire_up]") {
   stat = cublasSetVector(n, sizeof(*y), y, 1, devy, 1);
   if (stat != CUBLAS_STATUS_SUCCESS) 
         printf ("setVector y failed");
-  
+
   cublasStatus_t status =  cublasDdot(cublashandle, n, devx, 1, devy, 1, &res);
 
   if (status != CUBLAS_STATUS_SUCCESS) {                               
@@ -89,7 +81,7 @@ TEST_CASE("start-nvidia", "[test_gpu_fire_up]") {
   cusparseDestroy(cusparsehandle);
 }
 
-TEST_CASE("test-cublas", "[test_gpu_fire_up]") {
+TEST_CASE("test-cublas-only", "[test_gpu_fire_up_only]") {
 
   std::cout << "Test extra GPU only: cublas" << std::endl;
 
