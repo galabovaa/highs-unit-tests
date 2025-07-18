@@ -103,6 +103,4 @@ TEST_CASE("highs-names-extra", "[test_extra]") {
   // Model can't be written
   REQUIRE(highs.writeModel("") == HighsStatus::kError);
   if (dev_run) highs.writeSolution("", 1);
-
-  std::remove(solution_file.c_str());
 }
