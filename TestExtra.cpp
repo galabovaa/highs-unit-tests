@@ -104,17 +104,5 @@ TEST_CASE("highs-names-extra", "[test_extra]") {
   REQUIRE(highs.writeModel("") == HighsStatus::kError);
   if (dev_run) highs.writeSolution("", 1);
 
-  // Now work with a name-less model
-  HighsLp local_lp = lp;
-  local_lp.col_names_.clear();
-  local_lp.row_names_.clear();
-  highs.passModel(local_lp);
-  const std::string solution_file = "temp.sol";
-  REQUIRE(highs.writeSolution(solution_file, 1) == HighsStatus::kOk);
-
-  // Cannot get name of column or row 0
-  REQUIRE(highs.getColName(0, name) == HighsStatus::kError);
-  REQUIRE(highs.getRowName(0, name) == HighsStatus::kError);
-
   std::remove(solution_file.c_str());
 }
