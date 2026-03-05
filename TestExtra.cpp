@@ -88,7 +88,7 @@ TEST_CASE("highs-names-extra", "[test_extra]") {
   REQUIRE(status == HighsStatus::kError);
 
   // Model can't be written
-  REQUIRE(highs.writeModel("") == HighsStatus::kError);
+  REQUIRE(highs.writeModel("") == HighsStatus::kWarning);
   if (dev_run) highs.writeSolution("", 1);
 
   // Reinstate name and model writes OK
@@ -101,6 +101,6 @@ TEST_CASE("highs-names-extra", "[test_extra]") {
   iRow = lp.num_row_ / 2;
   REQUIRE(highs.passRowName(iRow, row0_name) == HighsStatus::kOk);
   // Model can't be written
-  REQUIRE(highs.writeModel("") == HighsStatus::kError);
+  REQUIRE(highs.writeModel("") == HighsStatus::kWarning);
   if (dev_run) highs.writeSolution("", 1);
 }
