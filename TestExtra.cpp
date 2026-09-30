@@ -78,7 +78,7 @@ TEST_CASE("highs-names-extra", "[test_extra]") {
   iCol = lp.num_col_ / 2;
   std::string iCol_name;
   REQUIRE(highs.getColName(iCol, iCol_name) == HighsStatus::kOk);
-  REQUIRE(highs.passColName(iCol, col0_name) == HighsStatus::kOk);
+  REQUIRE(highs.passColName(iCol, col0_name) == HighsStatus::kWarning);
 
   // column num_col/2 is no longer called iCol_name
   status = highs.getColByName(iCol_name, iCol);
@@ -99,7 +99,7 @@ TEST_CASE("highs-names-extra", "[test_extra]") {
   REQUIRE(highs.getRowName(0, name) == HighsStatus::kOk);
   REQUIRE(name == row0_name);
   iRow = lp.num_row_ / 2;
-  REQUIRE(highs.passRowName(iRow, row0_name) == HighsStatus::kOk);
+  REQUIRE(highs.passRowName(iRow, row0_name) == HighsStatus::kWarning);
   // Model can't be written
   REQUIRE(highs.writeModel("") == HighsStatus::kWarning);
   if (dev_run) highs.writeSolution("", 1);
